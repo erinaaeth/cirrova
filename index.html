@@ -31,7 +31,7 @@
     width: 100%; max-width: none; height: 100svh; min-height: 640px;
 
     margin: 0 auto;
-    overflow: hidden; isolation: isolate;
+    overflow: hidden; overflow-x: hidden; isolation: isolate;
     background: url("bg.webp") center bottom / cover no-repeat;
   }
 
@@ -48,7 +48,7 @@
 
   .island { position: absolute; z-index: 2; right: 0; top: calc(clamp(12px, 3vh, 32px) + clamp(52px, 7vh, 64px) + clamp(24px, 8.34vh, 60px)); width: auto; height: 78vh; max-height: 78vh; object-fit: contain; animation: float 6s ease-in-out infinite alternate; filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform; }
   @keyframes float { 0%, 100% { transform: translateY(-10px); } 50% { transform: translateY(10px); } }
-  .mist { position: absolute; z-index: 3; left: 0; bottom: 0; width: 100%; max-height: 32%; object-fit: cover; object-position: bottom center; pointer-events: none; animation: mist-drift 30s ease-in-out infinite; }
+  .mist { position: absolute; z-index: 3; left: -80px; bottom: 0; width: calc(100% + 160px); max-height: 32%; object-fit: cover; object-position: bottom center; pointer-events: none; animation: mist-drift 30s ease-in-out infinite; -webkit-mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); }
   @keyframes mist-drift { 0%, 100% { transform: translateX(-20px); } 50% { transform: translateX(20px); } }
 
 
