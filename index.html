@@ -95,13 +95,13 @@
   .btn-wallet {
     position: absolute; right: calc(var(--u) * 94); top: 50%; margin-top: calc(var(--u) * -20.5);
     width: calc(var(--u) * 225); height: calc(var(--u) * 41); border-radius: 999px;
-    background: rgba(255,255,255,.9); color: var(--ink);
+    background: #2B1B4D; color: #fff;
   }
   .btn-wallet:hover { transform: none; }
 
   /* Hero copy */
   .copy {
-    position: absolute; z-index: 4; left: calc(var(--content-inset) + var(--u) * 40); top: 50%;
+    position: absolute; z-index: 4; left: calc(var(--content-inset) + var(--u) * 40); top: max(50%, calc(max(17%, calc(var(--u) * 111 + 60px)) + 18.6vw));
     display: flex; flex-direction: column; align-items: flex-start;
     width: min(520px, calc(100% - 48px)); height: auto; transform: translateY(-50%);
   }
@@ -112,23 +112,42 @@
   h1 span { display: block; }
   h1 .accent { background: linear-gradient(90deg, #9268FF, #E06BC0); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; }
   .sub {
-    position: static; width: 100%; max-width: 420px; margin-top: 20px;
+    position: static; width: 100%; max-width: 460px; margin-top: 20px; text-wrap: balance;
     font: 400 19px/1.4 'Inter', sans-serif; color: #504078;
   }
   .actions { display: flex; align-items: center; gap: 18px; margin-top: 36px; }
-  .actions .btn { position: static; height: calc(var(--u) * 44); border-radius: 28px; }
-  .btn-primary { width: calc(var(--u) * 160); background: var(--violet); }
-  .btn-join { width: calc(var(--u) * 177); color: #2B1B4D; border-color: rgba(255,255,255,.70); }
-  .badge {
-    position: static; width: calc(var(--u) * 159); height: calc(var(--u) * 44); margin-top: 28px; border-radius: 20px;
-    display: flex; align-items: center; justify-content: center;
-    font: 500 calc(var(--u) * 16)/1 'Inter', sans-serif; color: #2B1B4D;
-  }
+  .actions .btn { position: static; height: 52px; padding: 0 28px; border-radius: 28px; }
+  .btn-primary { background: linear-gradient(110deg, #9268FF, #B07CFF); box-shadow: 0 10px 30px rgba(146,104,255,.35); }
+  .btn-primary:hover, .btn-primary:focus-visible { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(146,104,255,.42); }
+  .btn-join { color: #2B1B4D; border-color: rgba(255,255,255,.70); }
 
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; height: 32px; margin-bottom: 20px; padding: 0 12px; border-radius: 999px; color: #2B1B4D; font: 500 14px/1 'Inter', sans-serif; }
+  .live-dot { width: 8px; height: 8px; flex: 0 0 8px; border-radius: 50%; background: #35C979; box-shadow: 0 0 0 0 rgba(53,201,121,.55); animation: live-pulse 1.6s ease-out infinite; }
+  @keyframes live-pulse { 70%, 100% { box-shadow: 0 0 0 7px rgba(53,201,121,0); } }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; margin-top: 40px; }
+  .stat { display: flex; flex-direction: column; gap: 3px; text-align: center; }
+  .stat + .stat { border-left: 1px solid rgba(43,27,77,.15); }
+  .stat strong { color: #2B1B4D; font: 700 28px/1.15 'Sora', sans-serif; }
+  .stat span { color: #504078; font: 400 14px/1.35 'Inter', sans-serif; }
+  .contract { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 48px; margin-top: 24px; padding: 6px 8px 6px 14px; border-radius: 14px; color: #2B1B4D; }
+  .contract-address { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 14px/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .copy-button { flex: 0 0 auto; min-height: 32px; padding: 0 12px; border: 1px solid rgba(43,27,77,.18); border-radius: 9px; background: rgba(255,255,255,.38); color: #2B1B4D; font: 500 12px/1 'Inter', sans-serif; cursor: pointer; transition: background .2s, transform .2s; }
+  .copy-button:hover { background: rgba(255,255,255,.65); transform: translateY(-1px); }
+  .copy-button:focus-visible { outline: 2px solid #9268FF; outline-offset: 2px; }
+  .links a { position: relative; }
+  .links a::after { content: ''; position: absolute; left: 0; bottom: -8px; width: 100%; height: 2px; background: #9268FF; transform: scaleX(0); transform-origin: left; transition: transform .24s ease; }
+  .links a:hover::after, .links a:focus-visible::after { transform: scaleX(1); }
+  .ticker { position: absolute; z-index: 5; left: 0; right: 0; bottom: 0; display: flex; align-items: center; height: 56px; overflow: hidden; border-top: 1px solid rgba(255,255,255,.45); background: rgba(255,255,255,.32); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+  .ticker-track { display: flex; width: max-content; animation: ticker-scroll 30s linear infinite; }
+  .ticker-track span { flex: 0 0 auto; padding-right: 2.5rem; color: #2B1B4D; font: 600 18px/1 'Sora', sans-serif; white-space: nowrap; }
+  @keyframes ticker-scroll { to { transform: translateX(-50%); } }
+  .scroll-hint { position: absolute; z-index: 6; left: 50%; bottom: 70px; display: flex; justify-content: center; width: 22px; height: 34px; padding-top: 6px; border: 1.5px solid rgba(43,27,77,.55); border-radius: 12px; transform: translateX(-50%); }
+  .scroll-dot { width: 3px; height: 6px; border-radius: 3px; background: #2B1B4D; animation: scroll-dot 1.5s ease-in-out infinite; }
+  @keyframes scroll-dot { 0%, 100% { transform: translateY(0); opacity: 1; } 75% { transform: translateY(9px); opacity: .25; } }
   /* Mobile: text on top, island below */
   @media (max-width: 720px) {
     .hero { aspect-ratio: auto; height: auto; min-height: 100svh; container-type: normal; display: flex; flex-direction: column; padding-bottom: 60px; }
-    .nav, .logo, .links, .btn-wallet, h1, .sub, .actions .btn, .badge { position: static; }
+    .nav, .logo, .links, .btn-wallet, h1, .sub, .actions .btn { position: static; }
     .nav { margin: 16px 16px 0; height: 60px; padding: 0 8px 0 22px; border-radius: 28px;
       display: flex; align-items: center; justify-content: space-between; }
     .logo { transform: none; font-size: 21px; }
@@ -139,14 +158,18 @@
     h1 { font-size: clamp(48px, 11vw, 72px); line-height: 1.05; }
     .sub { width: 100%; max-width: 420px; margin-top: 20px; font-size: 19px; line-height: 1.4; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
-    .actions .btn { height: 52px; width: auto; padding: 0 24px; font-size: 16px; border-radius: 26px; }
-    .badge { display: inline-flex; width: auto; height: 40px; padding: 0 20px; margin-top: 28px; font-size: 15px; }
+    .actions .btn { height: 52px; width: auto; padding: 0 28px; font-size: 16px; border-radius: 26px; }
+    .stats { margin-top: 40px; }
+    .eyebrow { margin-bottom: 20px; }
+    .stat strong { font-size: clamp(20px, 6vw, 28px); }
+    .contract { gap: 8px; }
+    .scroll-hint { bottom: 70px; }
 
     .island { position: relative; z-index: 2; right: auto; top: auto; width: 108%; margin: 20px -2px -14% auto; align-self: flex-end; }
     .orb { width: 56px; height: 56px; }
     .o1 { left: 12%; top: 9%; } .o2 { left: 72%; top: 14%; } .o3 { left: 84%; top: 44%; }
   }
-  @media (prefers-reduced-motion: reduce) { .island, .mist { animation: none; } .btn { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .island, .mist, .live-dot, .ticker-track, .scroll-dot { animation: none; } .btn, .copy-button { transition: none; } }
 </style>
 </head>
 <body>
@@ -167,17 +190,54 @@
     </header>
 
     <section class="copy">
+      <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Live on Solana</div>
       <h1><span>Rise</span><span class="accent">Above</span><span>the Noise</span></h1>
       <p class="sub">A community-driven token floating above the chaos.</p>
       <div class="actions">
         <a class="btn btn-primary" href="#buy">Buy NOVA →</a>
         <a class="btn btn-join glass" href="#community">Join Community</a>
       </div>
-      <span class="badge glass">+12K Holders</span>
+      <div class="stats" aria-label="NOVA statistics">
+        <div class="stat"><strong>12K+</strong><span>Holders</span></div>
+        <div class="stat"><strong>$2.4M</strong><span>Market Cap</span></div>
+        <div class="stat"><strong>100%</strong><span>LP Burned</span></div>
+      </div>
+      <div class="contract glass">
+        <span class="contract-address">CA: 7xKX...9fP2</span>
+        <button class="copy-button" type="button" aria-live="polite" data-copy="7xKX...9fP2" onclick="copyContract(this)">Copy</button>
+      </div>
     </section>
 
     <img class="mist" src="mist.webp" alt="" aria-hidden="true">
     <img class="island" src="layer-island.png" alt="Floating island with a glass staircase leading to a glowing portal" width="992" height="973">
+    <div class="scroll-hint" aria-hidden="true"><span class="scroll-dot"></span></div>
+    <div class="ticker" aria-label="$NOVA, Fair Launch, 0% Tax, LP Burned, Community Owned">
+      <div class="ticker-track" aria-hidden="true">
+        <span>$NOVA ✦ Fair Launch ✦ 0% Tax ✦ LP Burned ✦ Community Owned ✦</span>
+        <span>$NOVA ✦ Fair Launch ✦ 0% Tax ✦ LP Burned ✦ Community Owned ✦</span>
+      </div>
+    </div>
   </main>
+<script>
+  async function copyContract(button) {
+    const originalLabel = button.dataset.originalLabel || button.textContent;
+    button.dataset.originalLabel = originalLabel;
+    try {
+      await navigator.clipboard.writeText(button.dataset.copy);
+    } catch {
+      const temporary = document.createElement("textarea");
+      temporary.value = button.dataset.copy;
+      temporary.style.position = "fixed";
+      temporary.style.opacity = "0";
+      document.body.append(temporary);
+      temporary.select();
+      document.execCommand("copy");
+      temporary.remove();
+    }
+    button.textContent = "Copied!";
+    clearTimeout(button.copyTimeout);
+    button.copyTimeout = setTimeout(() => { button.textContent = originalLabel; }, 1500);
+  }
+</script>
 </body>
 </html>
