@@ -32,9 +32,9 @@
 
     margin: 0 auto;
     overflow: hidden; overflow-x: hidden; isolation: isolate;
-    background: url("bg.webp") center bottom / cover no-repeat;
+    background: #A292C0;
   }
-
+  .hero::before { content: ""; position: absolute; z-index: -4; inset: -8px; background: url("bg.webp") center bottom / cover no-repeat; transform: translate3d(var(--bg-parallax-x, 0px), var(--bg-parallax-y, 0px), 0); pointer-events: none; }
 
   .orb {
     position: absolute; z-index: -3; border-radius: 50%; pointer-events: none;
@@ -45,11 +45,19 @@
   .o1 { left: 30.3%; top: 17%; }
   .o2 { left: 54.9%; top: 22.8%; }
   .o3 { left: 80.9%; top: 29.5%; }
+  .orb-small { z-index: -3; width: calc(var(--u) * 13); height: calc(var(--u) * 13); background: radial-gradient(circle, #fff 0 12%, rgba(215,195,255,.8) 32%, rgba(215,195,255,0) 78%); }
+  .p1 { left: 12%; top: 33%; } .p2 { left: 22%; top: 68%; } .p3 { left: 42%; top: 16%; } .p4 { left: 61%; top: 59%; } .p5 { left: 73%; top: 18%; } .p6 { left: 86%; top: 66%; } .p7 { left: 94%; top: 39%; }
 
-  .island { position: absolute; z-index: 2; right: 0; top: calc(clamp(12px, 3vh, 32px) + clamp(52px, 7vh, 64px) + clamp(24px, 8.34vh, 60px)); width: auto; height: 78vh; max-height: 78vh; object-fit: contain; filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform; }
-  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-  .mist { position: absolute; z-index: 3; left: -80px; bottom: 0; width: calc(100% + 160px); max-height: 32%; object-fit: cover; object-position: bottom center; pointer-events: none; -webkit-mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); }
-  @keyframes mist-drift { 0%, 100% { transform: translateX(-20px); } 50% { transform: translateX(20px); } }
+  .island-parallax { position: absolute; z-index: 2; right: 0; top: calc(clamp(12px, 3vh, 32px) + clamp(52px, 7vh, 64px) + clamp(24px, 8.34vh, 60px)); height: min(78vh, 78svh); max-height: 78vh; aspect-ratio: 992 / 973; transform: translate3d(var(--island-parallax-x, 0px), var(--island-parallax-y, 0px), 0); will-change: transform; }
+  .island { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform, opacity; }
+  @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
+  .mist-parallax { position: absolute; z-index: 3; left: -80px; bottom: 0; width: calc(100% + 160px); transform: translate3d(var(--mist-parallax-x, 0px), var(--mist-parallax-y, 0px), 0); will-change: transform; pointer-events: none; }
+  .mist { position: relative; display: block; width: 100%; max-height: 32vh; object-fit: cover; object-position: bottom center; -webkit-mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); will-change: transform, opacity; }
+  @keyframes mist-drift { 0%, 100% { translate: -20px 0; } 50% { translate: 20px 0; } }
+  @keyframes intro-rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes island-enter { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes mist-enter { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes particle-drift { from { opacity: .4; transform: translate(-50%, -50%); } to { opacity: 1; transform: translate(-50%, calc(-50% - 12px)); } }
 
 
   .glass {
@@ -103,6 +111,9 @@
   .stat + .stat { position: relative; }
   .stat + .stat::before { content: ""; position: absolute; top: 50%; left: -24px; width: 1px; height: 36px; background: rgba(43,27,77,.2); transform: translateY(-50%); }
   .stat strong { color: #2B1B4D; font: 700 clamp(20px, min(1.8vw, 3.2vh), 28px)/1.15 'Sora', sans-serif; }
+  .stat:nth-child(1) strong { min-width: 84px; }
+  .stat:nth-child(2) strong { min-width: 106px; }
+  .stat:nth-child(3) strong { min-width: 74px; }
   .stat span { color: #3A2A60; font: 400 clamp(12px, min(1vw, 1.6vh), 14px)/1.35 'Inter', sans-serif; }
   .contract { display: flex; align-items: center; justify-content: space-between; gap: clamp(8px, 1.1vw, 16px); width: min(380px, 100%); min-height: clamp(40px, 6vh, 48px); margin-top: clamp(16px, 2.5vh, 24px); padding: clamp(4px, .8vh, 6px) clamp(6px, .55vw, 8px) clamp(4px, .8vh, 6px) clamp(10px, 1vw, 14px); border-radius: clamp(10px, 1vw, 14px); color: #2B1B4D; }
   .contract-address { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 400 clamp(12px, min(1vw, 1.6vh), 14px)/1.3 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
@@ -133,7 +144,8 @@
     .copy { position: relative; left: auto; top: auto; transform: none; width: 90%; margin: clamp(22px, 4vh, 40px) auto 0; }
     .actions { flex-wrap: wrap; }
     .metrics { width: 100%; max-width: 600px; }
-    .island { position: relative; right: auto; top: auto; width: min(78vw, 560px); height: auto; max-height: 58svh; margin: clamp(16px, 3vh, 28px) 0 clamp(8px, 2vh, 18px) auto; align-self: flex-end; }
+    .island-parallax { position: relative; right: auto; top: auto; width: min(78vw, 560px); height: auto; max-height: 58svh; margin: clamp(16px, 3vh, 28px) 0 clamp(8px, 2vh, 18px) auto; align-self: flex-end; aspect-ratio: 992 / 973; }
+    .island { width: 100%; height: 100%; }
   }
 
   @media (prefers-reduced-motion: reduce) { .island, .mist, .live-dot, .ticker-track { animation: none; } .btn, .copy-button { transition: none; } }
@@ -166,19 +178,48 @@
   .why-card p { margin-top: 12px; color: #504078; font: 400 14.5px/1.55 'Inter', sans-serif; }
   .why-card a { display: inline-block; margin-top: 18px; color: #825AF0; font: 600 14px/1.4 'Inter', sans-serif; }
   .why-card a:focus-visible { outline: 2px solid #825AF0; outline-offset: 4px; border-radius: 2px; }
-  .how-section { position: relative; z-index: 1; isolation: isolate; overflow: clip; padding: clamp(80px, 10vh, 120px) 5vw clamp(100px, 14vh, 160px); background: #A292C0; color: #2B1B4D; }
-  .how-section::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 250px; background: linear-gradient(to bottom, #A292C0 0%, rgba(162,146,192,0) 100%); pointer-events: none; }
-  .how-inner { position: relative; z-index: 4; width: min(1000px, 100%); margin: 0 auto; }
-  .how-heading { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .how-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: clamp(42px, 5vw, 64px); }
-  .how-step { position: relative; }
-  .how-step:not(:last-child)::after { content: ""; position: absolute; z-index: 2; top: 50%; left: 100%; width: 24px; border-top: 1px dashed rgba(130,90,240,.35); pointer-events: none; }
-  .how-number { display: block; margin-bottom: 14px; background: linear-gradient(90deg, #9268FF, #E06BC0); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; font: 700 clamp(24px, 2vw, 32px)/1 'Sora', sans-serif; }
-  .how-step h3 { color: #2B1B4D; font: 600 18px/1.25 'Sora', sans-serif; }
-  .how-step p { margin-top: 10px; color: #3A2A60; font: 400 14.5px/1.55 'Inter', sans-serif; }
-  .how-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px; margin-top: 32px; }
-  .how-actions .contract { margin-top: 0; }
-  .how-buy-link { height: clamp(42px, 6vh, 52px); padding: 0 clamp(18px, 1.8vw, 28px); border-radius: 28px; }
+  .why-card[data-card-modal] { cursor: pointer; }
+  .why-card[data-card-modal]:focus-visible { outline: 2px solid #9268FF; outline-offset: 4px; }
+  .why-card-link { display: inline-block; margin-top: 18px; color: #825AF0; font: 600 14px/1.4 'Inter', sans-serif; }
+  .modal-overlay { position: fixed; z-index: 100; inset: 0; display: grid; place-items: center; padding: 12px; background: rgba(43,27,77,.35); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: 0; pointer-events: none; }
+  .modal-overlay[hidden] { display: none; }
+  .modal-overlay.is-open { opacity: 1; pointer-events: auto; }
+  .modal-panel { position: relative; width: min(560px, 92vw); max-height: calc(100svh - 24px); overflow-y: auto; overscroll-behavior: contain; padding: clamp(24px, 4vw, 36px); border: 1px solid rgba(255,255,255,.43); border-radius: 24px; background: rgba(255,255,255,.18); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: 0 20px 50px rgba(43,27,77,.22); opacity: 0; transform: scale(.97); }
+  .modal-overlay.is-open .modal-panel { opacity: 1; transform: scale(1); }
+  .modal-close { position: absolute; top: 14px; right: 14px; display: grid; width: 36px; height: 36px; place-items: center; padding: 0; border: 1px solid rgba(43,27,77,.12); border-radius: 50%; background: rgba(255,255,255,.28); color: #2B1B4D; cursor: pointer; }
+  .modal-close svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+  .modal-content { color: #3A2A60; }
+  .modal-title { max-width: 460px; padding-right: 30px; color: #2B1B4D; font: 700 clamp(28px, 2.6vw, 40px)/1.12 'Sora', sans-serif; letter-spacing: -.025em; }
+  .modal-copy { margin-top: 22px; color: #3A2A60; font: 400 16px/1.6 'Inter', sans-serif; }
+  .modal-copy p + p { margin-top: 12px; }
+  .modal-action { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 28px; padding: 0 22px; border: 0; border-radius: 28px; background: linear-gradient(110deg, #9268FF, #B07CFF); color: #fff; font: 600 14px/1 'Inter', sans-serif; cursor: pointer; }
+  .modal-steps { display: grid; gap: 8px; margin-top: 20px; }
+  .modal-step { display: grid; grid-template-columns: 34px 1fr; gap: 12px; align-items: start; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.3); }
+  .modal-step:last-child { border-bottom: 0; }
+  .modal-step-number { color: #9268FF; font: 700 17px/1.4 'Sora', sans-serif; }
+  .modal-step h3 { color: #2B1B4D; font: 600 16px/1.35 'Sora', sans-serif; }
+  .modal-step p { margin-top: 2px; color: #3A2A60; font: 400 14px/1.5 'Inter', sans-serif; }
+  .modal-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+  .modal-actions .contract { flex: 1 1 260px; width: min(380px, 100%); margin-top: 0; }
+  .modal-buy { min-height: clamp(42px, 6vh, 52px); padding: 0 18px; border-radius: 28px; white-space: nowrap; }
+  .tokenomics-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 22px; }
+  .tokenomics-tile { min-height: 78px; padding: 14px; border: 1px solid rgba(255,255,255,.43); border-radius: 16px; background: rgba(255,255,255,.18); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .tokenomics-tile span { display: block; color: #6E5A8F; font: 500 12px/1.35 'Inter', sans-serif; }
+  .tokenomics-tile strong { display: block; margin-top: 6px; color: #2B1B4D; font: 600 14px/1.4 'Inter', sans-serif; }
+  .fair-launch { margin-top: 20px; color: #2B1B4D; font: 600 14px/1.4 'Inter', sans-serif; }
+  .fair-launch-track { height: 10px; margin-top: 9px; overflow: hidden; border-radius: 99px; background: rgba(43,27,77,.1); }
+  .fair-launch-track span { display: block; width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #825AF0, #D7C3FF); }
+  .community-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 24px; }
+  .community-links a { display: flex; min-height: 54px; align-items: center; justify-content: center; gap: 8px; border: 1px solid rgba(255,255,255,.43); border-radius: 16px; background: rgba(255,255,255,.18); color: #2B1B4D; font: 600 14px/1 'Inter', sans-serif; }
+  .community-links svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .community-note { margin-top: 18px; color: #3A2A60; font: 400 15px/1.5 'Inter', sans-serif; }
+  .modal-note { margin-top: 22px; color: rgba(43,27,77,.62); font: 400 12px/1.5 'Inter', sans-serif; }
+  @media (prefers-reduced-motion: no-preference) {
+    .modal-overlay { transition: opacity .25s ease, backdrop-filter .25s ease; }
+    .modal-panel { transition: opacity .25s ease, transform .25s ease; }
+    .modal-close, .modal-action { transition: transform .25s ease, box-shadow .25s ease, background-color .25s ease; }
+    .modal-action:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(130,90,240,.35); }
+  }
   .why-reveal { opacity: 0; transform: translateY(24px); }
   .why-section.is-visible .why-reveal { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: no-preference) {
@@ -199,23 +240,32 @@
     .why-background { animation: cloud-scene-pan 40s ease-in-out infinite alternate; }
     .why-mist { animation: mist-breathe 25s ease-in-out infinite alternate; }
     .why-tree { animation: tree-sway 8s ease-in-out infinite alternate; }
+    .hero h1 .intro-word { opacity: 0; animation: intro-rise .52s ease-out both; }
+    .hero h1 .intro-word:nth-child(2) { animation-delay: .12s; }
+    .hero h1 .intro-word:nth-child(3) { animation-delay: .24s; }
+    .hero .intro-sub { opacity: 0; animation: intro-rise .52s ease-out .5s both; }
+    .hero .intro-actions { opacity: 0; animation: intro-rise .52s ease-out .62s both; }
+    .hero .intro-stats { opacity: 0; animation: intro-rise .52s ease-out .74s both; }
+    .hero .intro-contract { opacity: 0; animation: intro-rise .52s ease-out .86s both; }
+    .island { animation: float 6s ease-in-out infinite, island-enter .9s ease-out .08s both; }
+    .mist { animation: mist-drift 30s ease-in-out infinite, mist-enter .85s ease-out .4s both; }
+    .orb { animation: particle-drift 12s ease-in-out infinite alternate; }
+    .o1 { animation-duration: 11s; animation-delay: -3s; }
+    .o2 { animation-duration: 14s; animation-delay: -8s; }
+    .o3 { animation-duration: 9s; animation-delay: -5s; }
+    .p1 { animation-duration: 8s; animation-delay: -2s; }
+    .p2 { animation-duration: 10s; animation-delay: -6s; }
+    .p3 { animation-duration: 13s; animation-delay: -4s; }
+    .p4 { animation-duration: 9s; animation-delay: -7s; }
+    .p5 { animation-duration: 14s; animation-delay: -3s; }
+    .p6 { animation-duration: 12s; animation-delay: -9s; }
+    .p7 { animation-duration: 8s; animation-delay: -5s; }
   }
   @media (max-width: 899px) {
     .why-section { padding-right: 6vw; padding-left: 6vw; }
     .why-tree { right: -8vw; width: clamp(198px, 30.6vw, 306px); bottom: -5%; }
     .why-cards { grid-template-columns: 1fr; gap: 18px; max-width: 540px; margin-right: auto; margin-left: auto; }
     .why-card { min-height: 0; }
-  }
-  @media (max-width: 1023px) {
-    .how-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .how-step:nth-child(2)::after { display: none; }
-  }
-  @media (max-width: 639px) {
-    .how-section { padding-right: 6vw; padding-left: 6vw; }
-    .how-steps { grid-template-columns: 1fr; gap: 18px; }
-    .how-step::after { display: none; }
-    .how-actions { flex-direction: column; }
-    .how-actions .contract, .how-buy-link { width: min(380px, 100%); }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -230,41 +280,48 @@
     <span class="orb o1" aria-hidden="true"></span>
     <span class="orb o2" aria-hidden="true"></span>
     <span class="orb o3" aria-hidden="true"></span>
+    <span class="orb orb-small p1" aria-hidden="true"></span>
+    <span class="orb orb-small p2" aria-hidden="true"></span>
+    <span class="orb orb-small p3" aria-hidden="true"></span>
+    <span class="orb orb-small p4" aria-hidden="true"></span>
+    <span class="orb orb-small p5" aria-hidden="true"></span>
+    <span class="orb orb-small p6" aria-hidden="true"></span>
+    <span class="orb orb-small p7" aria-hidden="true"></span>
 
     <header class="nav glass">
       <a class="logo" href="#">NOVA</a>
       <ul class="links">
         <li><a href="#why-nova">Explore</a></li>
-        <li><a href="#tokenomics">Tokenomics</a></li>
-        <li><a href="#community">Community</a></li>
-        <li><a href="#about">About</a></li>
+        <li><a href="#tokenomics" data-modal-open="tokenomics">Tokenomics</a></li>
+        <li><a href="#community" data-modal-open="community">Community</a></li>
+        <li><a href="#about" data-modal-open="about">About</a></li>
       </ul>
       <a class="btn btn-wallet" href="#wallet">Connect Wallet</a>
     </header>
 
     <section class="copy">
       <div class="eyebrow"><span class="live-dot" aria-hidden="true"></span>Live on Solana</div>
-      <h1><span>Rise</span><span class="accent">Above</span><span>the Noise</span></h1>
-      <p class="sub">A community-driven token floating above the chaos.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="#buy">Buy NOVA →</a>
+      <h1><span class="intro-word">Rise</span><span class="accent intro-word">Above</span><span class="intro-word">the Noise</span></h1>
+      <p class="sub intro-sub">A community-driven token floating above the chaos.</p>
+      <div class="actions intro-actions">
+        <a class="btn btn-primary" href="#how-to-buy-modal" data-modal-open="how-to-buy">Buy NOVA →</a>
         <a class="btn btn-join glass" href="#community">Join Community</a>
       </div>
       <div class="metrics">
-        <div class="stats" aria-label="NOVA statistics">
-          <div class="stat"><strong>12K+</strong><span>Holders</span></div>
-          <div class="stat"><strong>$2.4M</strong><span>Market Cap</span></div>
-          <div class="stat"><strong>100%</strong><span>LP Burned</span></div>
+        <div class="stats intro-stats" aria-label="NOVA statistics">
+          <div class="stat"><strong data-count="12000" data-count-format="kplus">12K+</strong><span>Holders</span></div>
+          <div class="stat"><strong data-count="2400000" data-count-format="millions">$2.4M</strong><span>Market Cap</span></div>
+          <div class="stat"><strong data-count="100" data-count-format="percent">100%</strong><span>LP Burned</span></div>
         </div>
-        <div class="contract glass">
+        <div class="contract glass intro-contract">
           <span class="contract-address">CA: 7xKX...9fP2</span>
           <button class="copy-button" type="button" aria-live="polite" data-copy="7xKX...9fP2" onclick="copyContract(this)">Copy</button>
         </div>
       </div>
     </section>
 
-    <img class="mist" src="mist.webp" alt="" aria-hidden="true">
-    <img class="island" src="layer-island.png" alt="Floating island with a glass staircase leading to a glowing portal" width="992" height="973">
+    <div class="mist-parallax" aria-hidden="true"><img class="mist" src="mist.webp" alt="" loading="eager"></div>
+    <div class="island-parallax"><img class="island" src="layer-island.png" alt="Floating island with a glass staircase leading to a glowing portal" width="992" height="973"></div>
   </main>
   <img class="why-bridge-mist" src="mist.webp" alt="" aria-hidden="true" loading="lazy">
   <section class="why-section" id="why-nova" aria-labelledby="why-title">
@@ -278,75 +335,171 @@
         <p class="why-description">Most tokens sink in the noise. NOVA was built light from day one.</p>
       </header>
       <div class="why-cards">
-        <article class="why-card why-reveal">
+        <article class="why-card why-reveal" data-card-modal="same-sky" tabindex="0" aria-haspopup="dialog" aria-controls="detail-modal" aria-label="Open Same Sky for Everyone details">
           <span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 19 6v5c0 4.7-3 8-7 10-4-2-7-5.3-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg></span>
           <h3>Same Sky for Everyone</h3>
           <span class="why-card-label">FAIR LAUNCH</span>
           <p>No presale, no insiders. Everyone took off from the same ground.</p>
-          <a href="#how-to-buy">See how →</a>
+          <a href="#same-sky" data-modal-open="same-sky">See how →</a>
         </article>
-        <article class="why-card why-reveal">
+        <article class="why-card why-reveal" data-card-modal="ground-holds" tabindex="0" aria-haspopup="dialog" aria-controls="detail-modal" aria-label="Open Ground That Holds details">
           <span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span>
           <h3>Ground That Holds</h3>
           <span class="why-card-label">LIQUIDITY LOCKED</span>
           <p>The pool is locked, so there's always something solid under your feet.</p>
-          <a href="#how-to-buy">See how →</a>
+          <a href="#ground-holds" data-modal-open="ground-holds">See how →</a>
         </article>
-        <article class="why-card why-reveal">
+        <article class="why-card why-reveal" data-card-modal="crowd-steered" tabindex="0" aria-haspopup="dialog" aria-controls="detail-modal" aria-label="Open Steered by the Crowd details">
           <span class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 20v-1.5a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4V20"/><circle cx="9.5" cy="7" r="4"/><path d="M17 11a4 4 0 0 0 0-8M21 20v-1.5a4 4 0 0 0-3-3.87"/></svg></span>
           <h3>Steered by the Crowd</h3>
           <span class="why-card-label">COMMUNITY OWNED</span>
           <p>No captain. Holders decide where NOVA drifts next.</p>
-          <a href="#how-to-buy">See how →</a>
+          <a href="#crowd-steered" data-modal-open="crowd-steered">See how →</a>
         </article>
       </div>
     </div>
   </section>
-  <section class="how-section" id="how-to-buy" aria-labelledby="how-title">
-    <div class="why-background" aria-hidden="true"></div>
-    <div class="how-inner">
-      <header class="how-heading">
-        <span class="eyebrow">HOW TO BOARD</span>
-        <h2 class="why-title" id="how-title">Get on Board in <span class="accent">4 Steps</span></h2>
-        <p class="why-description">No ladders, no gatekeepers. Just four quick steps to the sky.</p>
-      </header>
-      <div class="how-steps" aria-label="How to buy NOVA in four steps">
-        <article class="why-card how-step">
-          <span class="how-number">01</span>
-          <h3>Board</h3>
-          <p>Download Phantom or any Solana wallet.</p>
-        </article>
-        <article class="why-card how-step">
-          <span class="how-number">02</span>
-          <h3>Fuel Up</h3>
-          <p>Buy SOL and send it to your wallet.</p>
-        </article>
-        <article class="why-card how-step">
-          <span class="how-number">03</span>
-          <h3>Take Off</h3>
-          <p>Open Jupiter, paste the NOVA contract address and swap.</p>
-        </article>
-        <article class="why-card how-step">
-          <span class="how-number">04</span>
-          <h3>Float</h3>
-          <p>Welcome aboard. Hold, vote, and drift with the crowd.</p>
-        </article>
-      </div>
-      <div class="how-actions">
-        <div class="contract glass">
-          <span class="contract-address">CA: 7xKX...9fP2</span>
-          <button class="copy-button" type="button" aria-live="polite" data-copy="7xKX...9fP2" onclick="copyContract(this)">Copy</button>
-        </div>
-        <a class="btn btn-primary how-buy-link" href="#">Buy on Jupiter →</a>
-      </div>
-    </div>
-  </section>
+
     <div class="ticker" aria-label="$NOVA, Fair Launch, 0% Tax, LP Burned, Community Owned">
       <div class="ticker-track">
         <div class="ticker-group"><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i></div>
         <div class="ticker-group" aria-hidden="true"><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i><span>$NOVA</span><i class="ticker-star" aria-hidden="true">✦</i><span>Fair Launch</span><i class="ticker-star" aria-hidden="true">✦</i><span>0% Tax</span><i class="ticker-star" aria-hidden="true">✦</i><span>LP Burned</span><i class="ticker-star" aria-hidden="true">✦</i><span>Community Owned</span><i class="ticker-star" aria-hidden="true">✦</i></div>
       </div>
     </div>
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal-panel glass" id="detail-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <button class="modal-close" type="button" aria-label="Close dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+      </button>
+      <div class="modal-content" id="modal-content"></div>
+    </div>
+  </div>
+  <template id="modal-same-sky">
+    <h2 class="modal-title" id="modal-title">Same Sky for Everyone</h2>
+    <div class="modal-copy">
+      <p>No presale, no team allocation, no whitelist.</p>
+      <p>100% of supply launched to the public on day one.</p>
+    </div>
+    <button class="modal-action" type="button" data-modal-open="how-to-buy">How to Buy →</button>
+  </template>
+  <template id="modal-ground-holds">
+    <h2 class="modal-title" id="modal-title">Ground That Holds</h2>
+    <div class="modal-copy">
+      <p>The liquidity pool is locked, so the floor can't be pulled.</p>
+      <p>LP tokens burned (100%).</p>
+    </div>
+    <button class="modal-action" type="button" data-modal-open="how-to-buy">How to Buy →</button>
+  </template>
+  <template id="modal-crowd-steered">
+    <h2 class="modal-title" id="modal-title">Steered by the Crowd</h2>
+    <div class="modal-copy">
+      <p>Holders vote on what NOVA does next.</p>
+      <p>No captain, no hidden wallet.</p>
+    </div>
+    <button class="modal-action" type="button" data-modal-open="how-to-buy">How to Buy →</button>
+  </template>
+  <template id="modal-how-to-buy">
+    <h2 class="modal-title" id="modal-title">Get on Board in <span class="accent">4 Steps</span></h2>
+    <div class="modal-steps">
+      <div class="modal-step"><span class="modal-step-number">01</span><div><h3>Board</h3><p>Download Phantom or any Solana wallet.</p></div></div>
+      <div class="modal-step"><span class="modal-step-number">02</span><div><h3>Fuel Up</h3><p>Buy SOL and send it to your wallet.</p></div></div>
+      <div class="modal-step"><span class="modal-step-number">03</span><div><h3>Take Off</h3><p>Open Jupiter, paste the NOVA contract address and swap.</p></div></div>
+      <div class="modal-step"><span class="modal-step-number">04</span><div><h3>Float</h3><p>Welcome aboard.</p></div></div>
+    </div>
+    <div class="modal-actions">
+      <div class="contract glass">
+        <span class="contract-address">CA: 7xKX...9fP2</span>
+        <button class="copy-button" type="button" aria-live="polite" data-copy="7xKX...9fP2" onclick="copyContract(this)">Copy</button>
+      </div>
+      <a class="btn btn-primary modal-buy" href="#">Buy on Jupiter →</a>
+    </div>
+  </template>
+  <template id="modal-tokenomics">
+    <h2 class="modal-title" id="modal-title"><span class="accent">Tokenomics</span></h2>
+    <div class="tokenomics-grid">
+      <div class="tokenomics-tile"><span>Total Supply</span><strong>1,000,000,000 NOVA</strong></div>
+      <div class="tokenomics-tile"><span>Tax</span><strong>0% buy / 0% sell</strong></div>
+      <div class="tokenomics-tile"><span>Liquidity</span><strong>100% LP burned</strong></div>
+      <div class="tokenomics-tile"><span>Contract</span><strong>Mint &amp; freeze revoked</strong></div>
+    </div>
+    <div class="fair-launch"><div>100% Fair Launch</div><div class="fair-launch-track" aria-label="100% Fair Launch"><span></span></div></div>
+  </template>
+  <template id="modal-community">
+    <h2 class="modal-title" id="modal-title">Join the Crowd</h2>
+    <div class="community-links">
+      <a href="#" aria-label="X"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l10 16h-4L5 4Zm1 16L18 4M5 4l14 16"/></svg><span>X</span></a>
+      <a href="#" aria-label="Telegram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 3-7.2 18-3.7-7.1L3 10.2 21 3Z"/><path d="m10.1 13.9 4.4-4.3"/></svg><span>Telegram</span></a>
+      <a href="#" aria-label="Discord"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7.5a13 13 0 0 1 10 0l1.5 9a12 12 0 0 1-4 2l-1-1.5M7 7.5l-1.5 9a12 12 0 0 0 4 2l1-1.5M8.5 15h.1M15.4 15h.1M8 10.5a9 9 0 0 1 8 0"/></svg><span>Discord</span></a>
+    </div>
+    <p class="community-note">Holders steer NOVA. Come say hi.</p>
+  </template>
+  <template id="modal-about">
+    <h2 class="modal-title" id="modal-title">About NOVA</h2>
+    <div class="modal-copy"><p>NOVA is a community token floating above the noise. No presale, no captain, just a crowd that rises together.</p></div>
+    <p class="modal-note">NOVA is a fictional concept project created for portfolio purposes. Not a real token.</p>
+  </template>
+<script>
+  (() => {
+    const motion = window.matchMedia("(prefers-reduced-motion: no-preference)");
+    if (!motion.matches) return;
+
+    const hero = document.querySelector(".hero");
+    const counts = [...document.querySelectorAll("[data-count]")];
+    const countDuration = 1400;
+    const formatCount = (value, format) => {
+      if (format === "kplus") return `${Math.floor(value / 1000)}K+`;
+      if (format === "millions") return `$${(value / 1000000).toFixed(1)}M`;
+      return `${Math.round(value)}%`;
+    };
+
+    counts.forEach((item) => { item.textContent = formatCount(0, item.dataset.countFormat); });
+    const countStart = performance.now();
+    const countFrame = (now) => {
+      const progress = Math.min(1, (now - countStart) / countDuration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counts.forEach((item) => {
+        const value = Number(item.dataset.count) * eased;
+        item.textContent = progress === 1 ? ({ kplus: "12K+", millions: "$2.4M", percent: "100%" }[item.dataset.countFormat]) : formatCount(value, item.dataset.countFormat);
+      });
+      if (progress < 1) requestAnimationFrame(countFrame);
+    };
+    if (counts.length) requestAnimationFrame(countFrame);
+
+    const desktopPointer = window.matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine)");
+    if (!hero || !desktopPointer.matches) return;
+    const target = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
+    let frame = 0;
+    let active = false;
+    const requestParallaxFrame = () => {
+      if (!frame) frame = requestAnimationFrame(updateParallax);
+    };
+    const updateParallax = () => {
+      frame = 0;
+      current.x += (target.x - current.x) * .08;
+      current.y += (target.y - current.y) * .08;
+      hero.style.setProperty("--bg-parallax-x", `${-current.x * 4}px`);
+      hero.style.setProperty("--bg-parallax-y", `${-current.y * 4}px`);
+      hero.style.setProperty("--island-parallax-x", `${-current.x * 12}px`);
+      hero.style.setProperty("--island-parallax-y", `${-current.y * 12}px`);
+      hero.style.setProperty("--mist-parallax-x", `${-current.x * 20}px`);
+      hero.style.setProperty("--mist-parallax-y", `${-current.y * 12}px`);
+      if (Math.abs(target.x - current.x) > .01 || Math.abs(target.y - current.y) > .01) requestParallaxFrame();
+      else active = false;
+    };
+    hero.addEventListener("pointermove", (event) => {
+      const bounds = hero.getBoundingClientRect();
+      target.x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - .5) * 2));
+      target.y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - .5) * 2));
+      if (!active) { active = true; requestParallaxFrame(); }
+    }, { passive: true });
+    hero.addEventListener("pointerleave", () => {
+      target.x = 0;
+      target.y = 0;
+      if (!active) { active = true; requestParallaxFrame(); }
+    }, { passive: true });
+  })();
+</script>
 <script>
   async function copyContract(button) {
     const originalLabel = button.dataset.originalLabel || button.textContent;
@@ -387,6 +540,105 @@
       section.classList.add("is-visible");
     }
 
+  })();
+</script>
+<script>
+  (() => {
+    const overlay = document.getElementById("modal-overlay");
+    const panel = document.getElementById("detail-modal");
+    const content = document.getElementById("modal-content");
+    const closeButton = overlay.querySelector(".modal-close");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let returnFocus = null;
+    let scrollLock = null;
+    let closeTimer = 0;
+
+    function renderModal(name) {
+      const template = document.getElementById(`modal-${name}`);
+      if (!template) return false;
+      content.replaceChildren(template.content.cloneNode(true));
+      panel.scrollTop = 0;
+      return true;
+    }
+
+    function openModal(name, trigger = document.activeElement) {
+      if (!renderModal(name)) return;
+      window.clearTimeout(closeTimer);
+      if (overlay.hidden) {
+        returnFocus = trigger;
+        const y = window.scrollY;
+        scrollLock = { y, position: document.body.style.position, top: document.body.style.top, width: document.body.style.width };
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${y}px`;
+        document.body.style.width = "100%";
+        overlay.hidden = false;
+        void overlay.offsetWidth;
+      }
+      overlay.classList.add("is-open");
+      closeButton.focus();
+    }
+
+    function closeModal() {
+      if (overlay.hidden) return;
+      overlay.classList.remove("is-open");
+      const finish = () => {
+        overlay.hidden = true;
+        if (scrollLock) {
+          document.body.style.position = scrollLock.position;
+          document.body.style.top = scrollLock.top;
+          document.body.style.width = scrollLock.width;
+          window.scrollTo(0, scrollLock.y);
+          scrollLock = null;
+        }
+        if (returnFocus?.isConnected) returnFocus.focus();
+        returnFocus = null;
+      };
+      closeTimer = window.setTimeout(finish, reducedMotion.matches ? 0 : 250);
+    }
+
+    document.addEventListener("click", (event) => {
+      const opener = event.target.closest("[data-modal-open]");
+      if (opener) {
+        event.preventDefault();
+        openModal(opener.dataset.modalOpen, opener);
+        return;
+      }
+      const card = event.target.closest("[data-card-modal]");
+      if (card && !event.target.closest("a, button")) openModal(card.dataset.cardModal, card);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      const card = event.target.closest?.("[data-card-modal]");
+      if (card && event.target === card && (event.key === "Enter" || event.key === " ")) {
+        event.preventDefault();
+        openModal(card.dataset.cardModal, card);
+        return;
+      }
+      if (overlay.hidden) return;
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeModal();
+        return;
+      }
+      if (event.key === "Tab") {
+        const focusable = [...panel.querySelectorAll('button:not(:disabled), a[href], [tabindex]:not([tabindex="-1"])')];
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    });
+
+    closeButton.addEventListener("click", closeModal);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) closeModal();
+    });
   })();
 </script>
 </body>
