@@ -34,7 +34,7 @@
     overflow: hidden; overflow-x: hidden; isolation: isolate;
     background: #A292C0;
   }
-  .hero::before { content: ""; position: absolute; z-index: -4; inset: -8px; background: url("bg.webp") center bottom / cover no-repeat; transform: translate3d(var(--bg-parallax-x, 0px), var(--bg-parallax-y, 0px), 0); pointer-events: none; }
+  .hero::before { content: ""; position: absolute; z-index: -4; inset: -60px; background: url("bg.webp") center bottom / cover no-repeat; transform: translate3d(var(--bg-parallax-x, 0px), var(--bg-parallax-y, 0px), 0); will-change: transform; backface-visibility: hidden; pointer-events: none; }
 
   .orb {
     position: absolute; z-index: -3; border-radius: 50%; pointer-events: none;
@@ -48,11 +48,11 @@
   .orb-small { z-index: -3; width: calc(var(--u) * 13); height: calc(var(--u) * 13); background: radial-gradient(circle, #fff 0 12%, rgba(215,195,255,.8) 32%, rgba(215,195,255,0) 78%); }
   .p1 { left: 12%; top: 33%; } .p2 { left: 22%; top: 68%; } .p3 { left: 42%; top: 16%; } .p4 { left: 61%; top: 59%; } .p5 { left: 73%; top: 18%; } .p6 { left: 86%; top: 66%; } .p7 { left: 94%; top: 39%; }
 
-  .island-parallax { position: absolute; z-index: 2; right: 0; top: calc(clamp(12px, 3vh, 32px) + clamp(52px, 7vh, 64px) + clamp(24px, 8.34vh, 60px)); height: min(78vh, 78svh); max-height: 78vh; aspect-ratio: 992 / 973; transform: translate3d(var(--island-parallax-x, 0px), var(--island-parallax-y, 0px), 0); will-change: transform; }
-  .island { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform, opacity; }
+  .island-parallax { position: absolute; z-index: 2; right: 0; top: calc(clamp(12px, 3vh, 32px) + clamp(52px, 7vh, 64px) + clamp(24px, 8.34vh, 60px)); height: min(78vh, 78svh); max-height: 78vh; aspect-ratio: 992 / 973; transform: translate3d(var(--island-parallax-x, 0px), var(--island-parallax-y, 0px), 0); will-change: transform; backface-visibility: hidden; }
+  .island { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform, opacity; backface-visibility: hidden; }
   @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
-  .mist-parallax { position: absolute; z-index: 3; left: -80px; bottom: 0; width: calc(100% + 160px); transform: translate3d(var(--mist-parallax-x, 0px), var(--mist-parallax-y, 0px), 0); will-change: transform; pointer-events: none; }
-  .mist { position: relative; display: block; width: 100%; max-height: 32vh; object-fit: cover; object-position: bottom center; -webkit-mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); mask-image: linear-gradient(to right, transparent, black 120px, black calc(100% - 120px), transparent); will-change: transform, opacity; }
+  .mist-parallax { position: absolute; z-index: 3; inset: auto -60px -60px; height: calc(32vh + 120px); transform: translate3d(var(--mist-parallax-x, 0px), var(--mist-parallax-y, 0px), 0); will-change: transform; backface-visibility: hidden; pointer-events: none; }
+  .mist { position: relative; display: block; width: 100%; height: 100%; object-fit: cover; object-position: bottom center; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); mask-composite: intersect; will-change: transform, opacity; backface-visibility: hidden; }
   @keyframes mist-drift { 0%, 100% { translate: -20px 0; } 50% { translate: 20px 0; } }
   @keyframes intro-rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes island-enter { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
@@ -172,14 +172,20 @@
   /* Why NOVA */
   html { scroll-behavior: smooth; }
   .why-section { position: relative; z-index: 1; isolation: isolate; overflow: clip; padding: clamp(80px, 12vh, 140px) 5vw clamp(160px, 22vh, 260px); background: #A292C0; color: #2B1B4D; }
-  .why-background { position: absolute; z-index: -2; inset: 0; background: url("bg.webp") center bottom / cover no-repeat; transform: scale(1.08) translateX(-2%); pointer-events: none; }
+  .why-background { position: absolute; z-index: -2; inset: -60px; background: url("bg.webp") center bottom / cover no-repeat; transform: translate3d(var(--why-parallax-x, 0px), var(--why-parallax-y, 0px), 0) scale(1.08) translateX(-2%); will-change: transform; backface-visibility: hidden; pointer-events: none; }
+  .why-cloud-layer { position: absolute; z-index: 0; left: -60px; right: -60px; bottom: calc(5% - 60px); height: calc(clamp(100px, 12vh, 160px) + 120px); overflow: hidden; opacity: .5; transform: translate3d(var(--why-parallax-x, 0px), var(--why-parallax-y, 0px), 0); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); mask-composite: intersect; will-change: transform; backface-visibility: hidden; pointer-events: none; }
+  .why-cloud-front { bottom: -60px; height: calc(clamp(100px, 12vh, 160px) + 120px); opacity: .35; }
+  .why-cloud-track { display: flex; width: 200%; height: 100%; will-change: transform; backface-visibility: hidden; }
+  .why-cloud-track img { display: block; flex: 0 0 50%; width: 50%; height: 100%; object-fit: cover; object-position: center; border: 0; outline: 0; box-shadow: none; }
+  .why-particle { z-index: 0; width: 13px; height: 13px; }
+  .why-particle.w1 { left: 14%; top: 24%; } .why-particle.w2 { left: 36%; top: 61%; } .why-particle.w3 { left: 67%; top: 19%; } .why-particle.w4 { left: 83%; top: 47%; } .why-particle.w5 { left: 55%; top: 75%; }
   .why-section::after { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 250px; background: linear-gradient(to bottom, #A292C0 0%, rgba(162,146,192,0) 100%); pointer-events: none; }
   .why-bridge-mist { --bridge-height: clamp(140px, 12vw, 180px); position: relative; z-index: 5; display: block; left: -10%; width: 120%; height: var(--bridge-height); margin-top: calc(var(--bridge-height) * -.5); margin-bottom: calc(var(--bridge-height) * -.5); object-fit: cover; object-position: center; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-composite: intersect; pointer-events: none; }
   .why-section::before { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse 34% 30% at 18% 36%, rgba(146,104,255,.30), transparent 75%), radial-gradient(ellipse 33% 30% at 78% 44%, rgba(224,107,192,.30), transparent 75%); filter: blur(90px); pointer-events: none; }
-  .why-mist { position: absolute; z-index: 3; left: -10%; bottom: 0; width: 120%; height: clamp(48px, 5vw, 72px); object-fit: cover; object-position: center bottom; opacity: .88; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 40%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 40%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-composite: intersect; pointer-events: none; }
+  .why-mist { position: absolute; z-index: 3; left: calc(-10% - 60px); bottom: -60px; width: calc(120% + 120px); height: calc(clamp(48px, 5vw, 72px) + 120px); object-fit: cover; object-position: center bottom; opacity: .88; transform: translate3d(var(--why-parallax-x, 0px), var(--why-parallax-y, 0px), 0); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); mask-composite: intersect; will-change: transform; backface-visibility: hidden; pointer-events: none; }
   .why-tree { position: absolute; z-index: 2; right: -7vw; bottom: -8%; width: clamp(234px, 21.6vw, 378px); height: auto; opacity: 1; transform-origin: bottom center; pointer-events: none; user-select: none; }
-  @keyframes cloud-scene-pan { from { transform: scale(1.08) translateX(-2%); } to { transform: scale(1.08) translateX(2%); } }
-  @keyframes mist-breathe { from { transform: translateY(-15px); } to { transform: translateY(15px); } }
+  @keyframes cloud-scene-pan { from { transform: translate3d(var(--why-parallax-x, 0px), var(--why-parallax-y, 0px), 0) scale(1.08) translateX(-2%); } to { transform: translate3d(var(--why-parallax-x, 0px), var(--why-parallax-y, 0px), 0) scale(1.08) translateX(2%); } }
+  @keyframes mist-breathe { from { transform: translate3d(var(--why-parallax-x, 0px), calc(var(--why-parallax-y, 0px) - 15px), 0); } to { transform: translate3d(var(--why-parallax-x, 0px), calc(var(--why-parallax-y, 0px) + 15px), 0); } }
   @keyframes tree-sway { from { transform: rotate(-.5deg); } to { transform: rotate(.5deg); } }
   .why-inner { position: relative; z-index: 4; width: min(1000px, 100%); margin: 0 auto; }
   .why-heading { display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -232,6 +238,9 @@
   .footer-social svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
   .footer-legal { justify-self: end; max-width: 300px; color: rgba(43,27,77,.62); text-align: right; font: 400 11px/1.5 'Inter', sans-serif; }
   @media (prefers-reduced-motion: no-preference) {
+    @keyframes why-cloud-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes why-cloud-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    @keyframes why-icon-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -4px; } }
     .nav-dropdown-panel { transition: opacity .2s ease, transform .2s ease, visibility .2s; }
     .nav-chevron { transition: transform .2s ease; }
     .modal-overlay { transition: opacity .25s ease, backdrop-filter .25s ease; }
@@ -260,6 +269,17 @@
     .ticker-track { animation: ticker-scroll 40s linear infinite; }
     .why-background { animation: cloud-scene-pan 40s ease-in-out infinite alternate; }
     .why-mist { animation: mist-breathe 25s ease-in-out infinite alternate; }
+    .why-cloud-back .why-cloud-track { animation: why-cloud-left 60s linear infinite; }
+    .why-cloud-front .why-cloud-track { animation: why-cloud-right 45s linear infinite; }
+    .why-section.is-visible .why-icon { animation: why-icon-float 4s ease-in-out infinite; }
+    .why-section.is-visible .why-card:nth-child(2) .why-icon { animation-delay: -1.1s; }
+    .why-section.is-visible .why-card:nth-child(3) .why-icon { animation-delay: -2.2s; }
+    .why-particle { animation: particle-drift 12s ease-in-out infinite alternate; }
+    .w1 { animation-duration: 9s; animation-delay: -2s; }
+    .w2 { animation-duration: 13s; animation-delay: -7s; }
+    .w3 { animation-duration: 11s; animation-delay: -4s; }
+    .w4 { animation-duration: 14s; animation-delay: -9s; }
+    .w5 { animation-duration: 8s; animation-delay: -5s; }
     .why-tree { animation: tree-sway 8s ease-in-out infinite alternate; }
     .hero h1 .intro-word { opacity: 0; animation: intro-rise .52s ease-out both; }
     .hero h1 .intro-word:nth-child(2) { animation-delay: .12s; }
@@ -370,6 +390,13 @@
   <img class="why-bridge-mist" src="mist.webp" alt="" aria-hidden="true" loading="lazy">
   <section class="why-section" id="why-nova" aria-labelledby="why-title">
     <div class="why-background" aria-hidden="true"></div>
+    <div class="why-cloud-layer why-cloud-back" aria-hidden="true"><div class="why-cloud-track"><img src="mist.webp" alt="" loading="lazy"><img src="mist.webp" alt="" loading="lazy"></div></div>
+    <div class="why-cloud-layer why-cloud-front" aria-hidden="true"><div class="why-cloud-track"><img src="mist.webp" alt="" loading="lazy"><img src="mist.webp" alt="" loading="lazy"></div></div>
+    <span class="orb orb-small why-particle w1" aria-hidden="true"></span>
+    <span class="orb orb-small why-particle w2" aria-hidden="true"></span>
+    <span class="orb orb-small why-particle w3" aria-hidden="true"></span>
+    <span class="orb orb-small why-particle w4" aria-hidden="true"></span>
+    <span class="orb orb-small why-particle w5" aria-hidden="true"></span>
     <img class="why-tree" src="assets/layer-tree.webp" alt="" aria-hidden="true" loading="lazy">
     <img class="why-mist" src="mist.webp" alt="" aria-hidden="true" loading="lazy">
     <div class="why-inner">
@@ -500,10 +527,11 @@
     };
     if (counts.length) requestAnimationFrame(countFrame);
 
+    const why = document.querySelector(".why-section");
     const desktopPointer = window.matchMedia("(min-width: 900px) and (hover: hover) and (pointer: fine)");
-    if (!hero || !desktopPointer.matches) return;
-    const target = { x: 0, y: 0 };
-    const current = { x: 0, y: 0 };
+    if ((!hero && !why) || !desktopPointer.matches) return;
+    const target = { hero: { x: 0, y: 0 }, why: { x: 0, y: 0 } };
+    const current = { hero: { x: 0, y: 0 }, why: { x: 0, y: 0 } };
     let frame = 0;
     let active = false;
     const requestParallaxFrame = () => {
@@ -511,28 +539,40 @@
     };
     const updateParallax = () => {
       frame = 0;
-      current.x += (target.x - current.x) * .08;
-      current.y += (target.y - current.y) * .08;
-      hero.style.setProperty("--bg-parallax-x", `${-current.x * 4}px`);
-      hero.style.setProperty("--bg-parallax-y", `${-current.y * 4}px`);
-      hero.style.setProperty("--island-parallax-x", `${-current.x * 12}px`);
-      hero.style.setProperty("--island-parallax-y", `${-current.y * 12}px`);
-      hero.style.setProperty("--mist-parallax-x", `${-current.x * 20}px`);
-      hero.style.setProperty("--mist-parallax-y", `${-current.y * 12}px`);
-      if (Math.abs(target.x - current.x) > .01 || Math.abs(target.y - current.y) > .01) requestParallaxFrame();
+      let settling = false;
+      ["hero", "why"].forEach((key) => {
+        current[key].x += (target[key].x - current[key].x) * .08;
+        current[key].y += (target[key].y - current[key].y) * .08;
+        if (key === "hero" && hero) {
+          hero.style.setProperty("--bg-parallax-x", `${-current.hero.x * 4}px`);
+          hero.style.setProperty("--bg-parallax-y", `${-current.hero.y * 4}px`);
+          hero.style.setProperty("--island-parallax-x", `${-current.hero.x * 12}px`);
+          hero.style.setProperty("--island-parallax-y", `${-current.hero.y * 12}px`);
+          hero.style.setProperty("--mist-parallax-x", `${-current.hero.x * 10}px`);
+          hero.style.setProperty("--mist-parallax-y", `${-current.hero.y * 10}px`);
+        } else if (key === "why" && why) {
+          why.style.setProperty("--why-parallax-x", `${-current.why.x * 6}px`);
+          why.style.setProperty("--why-parallax-y", `${-current.why.y * 6}px`);
+        }
+        if (Math.abs(target[key].x - current[key].x) > .01 || Math.abs(target[key].y - current[key].y) > .01) settling = true;
+      });
+      if (settling) requestParallaxFrame();
       else active = false;
     };
-    hero.addEventListener("pointermove", (event) => {
-      const bounds = hero.getBoundingClientRect();
-      target.x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - .5) * 2));
-      target.y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - .5) * 2));
-      if (!active) { active = true; requestParallaxFrame(); }
-    }, { passive: true });
-    hero.addEventListener("pointerleave", () => {
-      target.x = 0;
-      target.y = 0;
-      if (!active) { active = true; requestParallaxFrame(); }
-    }, { passive: true });
+    [["hero", hero], ["why", why]].forEach(([key, element]) => {
+      if (!element) return;
+      element.addEventListener("pointermove", (event) => {
+        const bounds = element.getBoundingClientRect();
+        target[key].x = Math.max(-1, Math.min(1, ((event.clientX - bounds.left) / bounds.width - .5) * 2));
+        target[key].y = Math.max(-1, Math.min(1, ((event.clientY - bounds.top) / bounds.height - .5) * 2));
+        if (!active) { active = true; requestParallaxFrame(); }
+      }, { passive: true });
+      element.addEventListener("pointerleave", () => {
+        target[key].x = 0;
+        target[key].y = 0;
+        if (!active) { active = true; requestParallaxFrame(); }
+      }, { passive: true });
+    });
   })();
 </script>
 <script>
@@ -569,7 +609,7 @@
           section.classList.add("is-visible");
           observer.disconnect();
         });
-      }, { threshold: 0.12 });
+      }, { threshold: 0.2 });
       revealObserver.observe(section);
     } else {
       section.classList.add("is-visible");
