@@ -49,7 +49,8 @@
   .p1 { left: 12%; top: 33%; } .p2 { left: 22%; top: 68%; } .p3 { left: 42%; top: 16%; } .p4 { left: 61%; top: 59%; } .p5 { left: 73%; top: 18%; } .p6 { left: 86%; top: 66%; } .p7 { left: 94%; top: 39%; }
 
   .island-parallax { position: absolute; z-index: 2; right: 36px; top: calc(clamp(12px, 3vh, 32px) + clamp(52px, 7vh, 64px) + clamp(24px, 8.34vh, 60px)); height: min(72.5vh, 72.5svh); max-height: 72.5vh; aspect-ratio: 992 / 973; transform: translate3d(var(--island-parallax-x, 0px), var(--island-parallax-y, 0px), 0); will-change: transform; backface-visibility: hidden; }
-  .island { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform, opacity; backface-visibility: hidden; }
+  .island-parallax::after { content: ""; position: absolute; z-index: 1; top: 42%; right: -5%; width: clamp(170px, 18vw, 260px); height: clamp(150px, 20vh, 230px); border: 0; outline: 0; background: radial-gradient(ellipse at 58% 52%, rgba(248,244,255,.42) 0%, rgba(215,195,255,.35) 38%, rgba(215,195,255,0) 76%); box-shadow: none; filter: blur(30px); opacity: .8; pointer-events: none; will-change: transform; backface-visibility: hidden; }
+  .island { position: relative; display: block; width: 100%; height: 100%; object-fit: contain; -webkit-mask-image: linear-gradient(to right, black 0%, black 80%, transparent 98%); mask-image: linear-gradient(to right, black 0%, black 80%, transparent 98%); filter: drop-shadow(-0.55vw 0 min(20px, 2.8vh) rgba(146,104,255,.20)); will-change: transform, opacity; backface-visibility: hidden; }
   @keyframes float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
   .mist-parallax { position: absolute; z-index: 3; left: -60px; right: -60px; bottom: -10%; height: 120%; transform: translate3d(var(--mist-parallax-x, 0px), var(--mist-parallax-y, 0px), 0); will-change: transform; backface-visibility: hidden; pointer-events: none; }
   .mist { position: absolute; display: block; left: 0; bottom: 10%; width: 100%; height: 32vh; object-fit: cover; object-position: bottom center; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); mask-composite: intersect; will-change: transform, opacity; backface-visibility: hidden; }
@@ -190,7 +191,7 @@
   .why-particle { z-index: 0; width: 13px; height: 13px; }
   .why-particle.w1 { left: 14%; top: 24%; } .why-particle.w2 { left: 36%; top: 61%; } .why-particle.w3 { left: 67%; top: 19%; } .why-particle.w4 { left: 83%; top: 47%; } .why-particle.w5 { left: 55%; top: 75%; }
   .why-section::after { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 250px; background: linear-gradient(to bottom, #A292C0 0%, rgba(162,146,192,0) 100%); pointer-events: none; }
-  .why-bridge-mist { --bridge-height: clamp(140px, 12vw, 180px); position: relative; z-index: 5; display: block; left: -10%; width: 120%; height: var(--bridge-height); margin-top: calc(var(--bridge-height) * -.5); margin-bottom: calc(var(--bridge-height) * -.5); object-fit: cover; object-position: center; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-composite: intersect; pointer-events: none; }
+  .why-bridge-mist { --bridge-height: clamp(140px, 12vw, 180px); position: relative; z-index: 5; display: block; left: -10%; width: 120%; height: var(--bridge-height); margin-top: calc(var(--bridge-height) * -.5); margin-bottom: calc(var(--bridge-height) * -.5); object-fit: cover; object-position: center; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); mask-composite: intersect; will-change: transform; backface-visibility: hidden; pointer-events: none; }
   .why-section::before { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(ellipse 34% 30% at 18% 36%, rgba(146,104,255,.30), transparent 75%), radial-gradient(ellipse 33% 30% at 78% 44%, rgba(224,107,192,.30), transparent 75%); filter: blur(90px); pointer-events: none; }
   .why-mist { position: absolute; z-index: 3; left: calc(-10% - 60px); bottom: -60px; width: calc(120% + 120px); height: calc(clamp(48px, 5vw, 72px) + 120px); object-fit: cover; object-position: center bottom; opacity: .88; transform: translate3d(var(--why-parallax-x, 0px), var(--why-parallax-y, 0px), 0); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); -webkit-mask-composite: source-in; mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%), linear-gradient(to right, transparent 0%, black 18%, black 82%, transparent 100%); mask-composite: intersect; will-change: transform; backface-visibility: hidden; pointer-events: none; }
   .why-tree { position: absolute; z-index: 2; right: -7vw; bottom: -8%; width: clamp(234px, 21.6vw, 378px); height: auto; opacity: 1; transform-origin: bottom center; pointer-events: none; user-select: none; }
@@ -249,6 +250,8 @@
   .footer-legal { justify-self: end; max-width: 300px; color: rgba(43,27,77,.62); text-align: right; font: 400 11px/1.5 'Inter', sans-serif; }
   @media (prefers-reduced-motion: no-preference) {
     @keyframes nav-tile-enter { to { opacity: 1; transform: translateY(0); } }
+    @keyframes island-edge-mist { from { transform: translateX(-20px); } to { transform: translateX(20px); } }
+    @keyframes why-bridge-drift { from { transform: translateX(-22px); } to { transform: translateX(22px); } }
     @keyframes why-cloud-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @keyframes why-cloud-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
     @keyframes why-icon-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -4px; } }
@@ -280,10 +283,12 @@
     .why-section.is-visible .why-card:nth-child(2) { transition-delay: .2s; }
     .why-section.is-visible .why-card:nth-child(3) { transition-delay: .3s; }
     .island { animation: float 6s ease-in-out infinite; }
+    .island-parallax::after { animation: island-edge-mist 14s ease-in-out infinite alternate; }
     .mist { animation: mist-drift 30s ease-in-out infinite; }
     .live-dot { animation: live-pulse 1.6s ease-out infinite; }
     .ticker-track { animation: ticker-scroll 40s linear infinite; }
     .why-background { animation: cloud-scene-pan 40s ease-in-out infinite alternate; }
+    .why-bridge-mist { animation: why-bridge-drift 28s ease-in-out infinite alternate; }
     .why-mist { animation: mist-breathe 25s ease-in-out infinite alternate; }
     .why-cloud-back .why-cloud-track { animation: why-cloud-left 60s linear infinite; }
     .why-cloud-front .why-cloud-track { animation: why-cloud-right 45s linear infinite; }
